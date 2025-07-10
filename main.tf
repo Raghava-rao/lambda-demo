@@ -38,28 +38,6 @@ resource "aws_iam_policy" "lambda_ecr_access" {
   })
 }
 
-resource "aws_ecr_repository_policy" "allow_lambda_pull" {
-  repository = "lambda-repo" 
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Sid       = "AllowLambdaPull",
-        Effect    = "Allow",
-        Principal = {
-          AWS = aws_iam_role.lambda_exec_role.arn
-        },
-        Action = [
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage"
-        ]
-      }
-    ]
-  })
-}
-
 
 # Attach ECR policy to Lambda role
 resource "aws_iam_role_policy_attachment" "lambda_ecr" {
