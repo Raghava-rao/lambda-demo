@@ -1,3 +1,9 @@
+resource "random_string" "suffix" {
+  length  = 4
+  upper   = false
+  special = false
+}
+
 resource "aws_iam_role" "lambda_exec_role" {
     name = "lambda-exec-role-${random_string.suffix.result}"
     assume_role_policy = jsonencode({
