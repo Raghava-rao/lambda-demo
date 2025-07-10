@@ -1,4 +1,4 @@
-resource "aws_iam_role" "lambda_exec_role" {
+resource "aws_iam_role" "lambda_exec_role-1" {
     name = "lambda-exec-role"
     assume_role_policy = jsonencode({
         Version    = "2012-10-17",
@@ -15,13 +15,13 @@ resource "aws_iam_role" "lambda_exec_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_basic" {
-    role = aws_iam_role.lambda_exec_role.name
+    role = aws_iam_role.lambda_exec_role-1.name
     policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 resource "aws_lambda_function" "container_lambda" {
     function_name = "container-lambda"
-    role     = aws_iam_role.lambda_exec_role.arn
+    role     = aws_iam_role.lambda_exec_role-1.arn
     package_type = "Image"
     image_uri  = var.image_uri
     timeout   = 30
