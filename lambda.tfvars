@@ -1,1 +1,1 @@
-image_uri = "154767946691.dkr.ecr.us-east-1.amazonaws.com/lambda-repo:lambda"
+image_uri = "825382393065.dkr.ecr.eu-north-1.amazonaws.com/lambda-repo:demo-v1"
