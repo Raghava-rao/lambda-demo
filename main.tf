@@ -108,24 +108,3 @@ resource "aws_lambda_permission" "apigw" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
 }
-
-# OPTIONAL: ECR repository policy (add if you manage repo via Terraform)
-resource "aws_ecr_repository_policy" "allow_lambda" {
-  repository = "lambda-repo" # replace with your repo name
-
-  policy = jsonencode({
-    Version = "2008-10-17",
-    Statement = [{
-      Sid      = "AllowLambdaECRPull",
-      Effect   = "Allow",
-      Principal = {
-        Service = "lambda.amazonaws.com"
-      },
-      Action = [
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
-      ]
-    }]
-  })
-}
